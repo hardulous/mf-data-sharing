@@ -24,6 +24,9 @@ const devConfig = {
       exposes: {
         "./cakeApp": "./src/bootstrap.js",
       },
+      remotes: {
+        container: "container@http://localhost:3000/remoteEntry.js",
+      },
       shared: {
         ...deps,
       },
@@ -32,4 +35,3 @@ const devConfig = {
 };
 
 module.exports = merge(commonConfig, devConfig);
-

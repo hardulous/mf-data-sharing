@@ -2,7 +2,7 @@ const { merge } = require("webpack-merge");
 const commonConfig = require("./webpack.common");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
-const deps = require("../package.json").dependencies; 
+const deps = require("../package.json").dependencies;
 
 const devConfig = {
   mode: "development",
@@ -22,12 +22,14 @@ const devConfig = {
       exposes: {
         "./iceCreamApp": "./src/bootstrap.js",
       },
+      remotes: {
+        container: "container@http://localhost:3000/remoteEntry.js",
+      },
       shared: {
-        ...deps, 
+        ...deps,
       },
     }),
   ],
 };
 
 module.exports = merge(commonConfig, devConfig);
-

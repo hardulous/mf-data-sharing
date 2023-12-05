@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const HomePage = () => {
-  const childMf = useSelector((state) => state.host);
-  console.log(childMf);
 
   const handleReset = (e) => {
     if (e.currentTarget.id == "cake-reset") {
@@ -23,15 +20,12 @@ const HomePage = () => {
   return (
     <div>
       <h1>HomePage</h1>
-      <div>Items In The Cart :</div>
       <div>
-        <span>Cake : {childMf["cake-bought"] || 0}</span>
         <button id="cake-reset" onClick={handleReset}>
           Reset Cake
         </button>
       </div>
       <div>
-        <span>IceCream : {childMf["iceCream-bought"] || 0}</span>
         <button id="icecream-reset" onClick={handleReset}>
           Reset Ice Cream
         </button>

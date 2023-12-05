@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  dataCB: "",
+
+  dataCB: "",  // For communication with parent mf using cb function
+  pubSub: ""   // For communication with parent mf using pubSub 
+
 };
 
 const passerSlice = createSlice({
@@ -9,11 +12,13 @@ const passerSlice = createSlice({
   initialState,
   reducers: {
     setDataCB: (state, action) => {
-      console.log(action);
       state.dataCB = action.payload.cb;
+    },
+    setPubSub: (state, action) => {
+      state.pubSub = action.payload.pubSub;
     },
   },
 });
 
 export default passerSlice;
-export const { setDataCB } = passerSlice.actions;
+export const { setDataCB , setPubSub } = passerSlice.actions;

@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { fromChild } from "../rtk/hostSlice";
+import pubSub from "../pub-sub/pubSub";
 
 export default () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export default () => {
           })
         );
       },
+      pubSub
     });
 
     history.listen(onParentNavigate);

@@ -18,6 +18,10 @@ const devConfig = {
   plugins: [
     new ModuleFederationPlugin({
       name: "container",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./pubSub": "./src/pub-sub/pubSub.js",
+      },
       remotes: {
         cake: "cake@http://localhost:3001/remoteEntry.js",
         iceCream: "iceCream@http://localhost:3002/remoteEntry.js",

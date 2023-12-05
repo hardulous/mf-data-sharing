@@ -5,8 +5,10 @@ import { createMemoryHistory, createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import store from "./rtk/store";
 import { setDataCB } from "./rtk/passerSlice";
+import pubSub from "container/pubSub";
+import { setPubSub } from "./rtk/passerSlice";
 
-const mount = (el, { onNavigate, defaultHistory, initialPath, fromIceCreamMF }) => {
+const mount = (el, { onNavigate, defaultHistory, initialPath, fromIceCreamMF, pubSub }) => {
   const history =
     defaultHistory ||
     createMemoryHistory({
@@ -14,7 +16,9 @@ const mount = (el, { onNavigate, defaultHistory, initialPath, fromIceCreamMF }) 
     });
 
   if (onNavigate) history.listen(onNavigate);
-  if (fromIceCreamMF) store.dispatch(setDataCB({ cb: fromIceCreamMF }));
+  // if (fromIceCreamMF) store.dispatch(setDataCB({ cb: fromIceCreamMF }));  // Now we will use pub-sub method for communication
+
+  if (onNavigate && pubSub) store.dispatch(setPubSub({ pubSub }));
 
   ReactDOM.render(
     <Provider store={store}>

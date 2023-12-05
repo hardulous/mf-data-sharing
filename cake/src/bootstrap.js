@@ -4,9 +4,9 @@ import App from "./App";
 import { createMemoryHistory, createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import store from "./rtk/store";
-import { setDataCB } from "./rtk/passerSlice";
+import { setDataCB, setPubSub } from "./rtk/passerSlice";
 
-const mount = (el, { onNavigate, defaultHistory, initialPath, fromCakeMF }) => {
+const mount = (el, { onNavigate, defaultHistory, initialPath, fromCakeMF, pubSub }) => {
   const history =
     defaultHistory ||
     createMemoryHistory({
@@ -14,7 +14,10 @@ const mount = (el, { onNavigate, defaultHistory, initialPath, fromCakeMF }) => {
     });
 
   if (onNavigate) history.listen(onNavigate);
-  if (fromCakeMF) store.dispatch(setDataCB({ cb: fromCakeMF }));
+
+  // if (fromCakeMF) store.dispatch(setDataCB({ cb: fromCakeMF }));   // Now we will use pub-sub method for communication
+  console.log(pubSub)
+  if (onNavigate && pubSub) store.dispatch(setPubSub({ pubSub }));
 
   ReactDOM.render(
     <Provider store={store}>
