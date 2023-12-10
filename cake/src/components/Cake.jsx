@@ -22,6 +22,9 @@ const Cake = () => {
     window.addEventListener("cake-reset", (e) => {
       console.log(e);
     });
+    pubSub.subscribe("pending-event",(data)=>{
+      console.log(data)
+    })
   }, []);
 
   const handleShare = () => {

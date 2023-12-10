@@ -4,6 +4,9 @@ class PubSub {
   constructor() {
     // To keep track of events the components is subscribing to ::
     this.events = {};
+
+    // To keep track of published events without subscribers
+    this.pendingEvents = {};
   }
 
   // A component can subscribe to the event to trigger changes when that event is triggered
@@ -19,7 +22,15 @@ class PubSub {
 
     // Adding subscibe object for that event
     this.events[evName].push(newSubObj);
-    console.log(this.events)
+
+    // Check if there are pending published events for this subscribed event
+    if (this.pendingEvents[evName]) {
+      this.pendingEvents[evName].forEach((pendingEvent) => {
+        func(pendingEvent.data);   
+      });
+      delete this.pendingEvents[evName];
+    }
+
     return id; // Return unique id to be used to unsubscribe to that event
   }
 
@@ -31,7 +42,6 @@ class PubSub {
         (subObj) => subObj.id !== id
       );
     }
-    console.log(this.events)
   }
 
   // To trigger an event and send data to all subscribers for that event
@@ -40,9 +50,12 @@ class PubSub {
       this.events[evName].forEach((subObj) => {
         subObj.func(data); // Calling all subscriber functions for that event with given parameters
       });
+    } else {
+      // If there are no subscribers at the moment, store the published event for future subscribers
+      this.pendingEvents[evName] = this.pendingEvents[evName] || [];
+      this.pendingEvents[evName].push({ data });
     }
-    console.log(this.events)
   }
 }
 
-export default new PubSub();  // Exporting the instance of this pub sub class to be used in all microfrontend
+export default new PubSub(); // Exporting the instance of this pub sub class to be used in all microfrontend

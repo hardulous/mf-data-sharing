@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import pubSub from "../pub-sub/pubSub";
 
 const HomePage = () => {
 
@@ -16,6 +17,10 @@ const HomePage = () => {
       window.dispatchEvent(customEvent);
     }
   };
+
+  useEffect(()=>{
+   pubSub.publish("pending-event","From Container")
+  },[])
 
   return (
     <div>
