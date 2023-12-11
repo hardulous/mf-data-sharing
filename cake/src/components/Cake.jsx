@@ -22,10 +22,11 @@ const Cake = () => {
     window.addEventListener("cake-reset", (e) => {
       console.log(e);
     });
-    pubSub.subscribe("pending-event",(data)=>{
-      console.log(data)
-    })
-  }, []);
+    if (pubSub)
+      pubSub.subscribe("pending-event", (data) => {
+        console.log(data);
+      });
+  }, [pubSub]);
 
   const handleShare = () => {
     console.log(cake.cake);
@@ -40,9 +41,7 @@ const Cake = () => {
   };
 
   const handleFake = () => {
-    pubSub.subscribe("fake-cake-event", (data) => {
-      
-    });
+    pubSub.subscribe("fake-cake-event", (data) => {});
   };
 
   return (

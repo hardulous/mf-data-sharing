@@ -29,6 +29,7 @@ class PubSub {
         func(pendingEvent.data);   
       });
       delete this.pendingEvents[evName];
+      console.log(this.events)
     }
 
     return id; // Return unique id to be used to unsubscribe to that event

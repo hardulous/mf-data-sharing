@@ -18,10 +18,11 @@ const IceCream = () => {
     window.addEventListener("icecream-reset", (e) => {
       console.log(e);
     });
-    pubSub.subscribe("pending-event", (data) => {
-      console.log(data);
-    });
-  }, []);
+    if (pubSub)
+      pubSub.subscribe("pending-event", (data) => {
+        console.log(data);
+      });
+  }, [pubSub]);
 
   const handleShare = () => {
     shareFunc({
