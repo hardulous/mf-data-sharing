@@ -15,6 +15,9 @@ const devConfig = {
   output: {
     publicPath: "http://localhost:3000/",
   },
+  resolve: {
+    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+  },
   plugins: [
     new ModuleFederationPlugin({
       name: "container",

@@ -1,32 +1,32 @@
+// Webpack for production mode only
+
 const { merge } = require("webpack-merge");
 const commonConfig = require("./webpack.common");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("../package.json").dependencies;
 
-const devConfig = {
-  mode: "development",
-  devServer: {
-    port: 3002,
-    historyApiFallback: {
-      index: "/index.html",
-    },
-  },
+const domain = process.env.PRODUCTION_DOMAIN;
+
+const prodConfig = {
+  mode: "production",
   output: {
-    publicPath: "http://localhost:3002/",
+    filename: "[name].[contenthash].js",
+    // publicPath: "https://demo-icecream.netlify.app/",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "iceCream",
+      name: "choco",
       filename: "remoteEntry.js",
-      exposes: {
-        "./iceCreamApp": "./src/bootstrap.js",
-      },
+      // exposes: {
+      //   "./iceCreamApp": "./src/bootstrap.js",
+      // },
       remotes: {
-        container: "container@http://localhost:3000/remoteEntry.js",
+        container:
+          "container@https://demo-con.netlify.app/remoteEntry.js",
       },
       shared: {
         ...deps,
@@ -35,4 +35,4 @@ const devConfig = {
   ],
 };
 
-module.exports = merge(commonConfig, devConfig);
+module.exports = merge(commonConfig, prodConfig);

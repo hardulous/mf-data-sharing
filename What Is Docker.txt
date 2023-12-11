@@ -1,0 +1,6 @@
+########## DOCKER 
+
+Docker is a platform for developing, shipping, and running applications in containers. Containers are lightweight, standalone, and executable packages that include everything needed to run a piece of software, including the code, runtime, libraries, and system tools. Docker provides a consistent and reproducible environment across different systems, making it easier to deploy and scale applications.
+
+######### PROBLEM DOCKER SOLVES
+

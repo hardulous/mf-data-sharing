@@ -12,19 +12,26 @@ const prodConfig = {
   mode: "production",
   output: {
     filename: "[name].[contenthash].js",
-    publicPath: "/auth/latest", 
+    publicPath: "https://demo-icecream.netlify.app/",
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
   plugins: [
-    // new ModuleFederationPlugin({
-    //   name: "Marketing",
-    //   filename: "remoteEntry.js",
-    //   exposes: {
-    //     "./AuthApp": "./src/bootstrap.js",
-    //   },
-    //   shared: {
-    //     ...deps,
-    //   },
-    // }),
+    new ModuleFederationPlugin({
+      name: "iceCream",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./iceCreamApp": "./src/bootstrap.js",
+      },
+      remotes: {
+        container:
+          "container@https://demo-con.netlify.app/remoteEntry.js",
+      },
+      shared: {
+        ...deps,
+      },
+    }),
   ],
 };
 

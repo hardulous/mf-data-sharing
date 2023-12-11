@@ -4,6 +4,7 @@ import HomePage from "./components/HomePage.jsx";
 import { Provider } from "react-redux";
 import store from "./rtk/store.js";
 import Cart from "./components/Cart.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 
 const CakeApp = lazy(() => import("./components/CakeMF.jsx"));
 const IceCreamApp = lazy(() => import("./components/IceCreamMF.jsx"));
@@ -26,3 +27,7 @@ const App = () => {
 };
 
 export default App;
+
+// NOTE::
+
+// 1. main.js:830 Initialization of sharing external failed: ScriptExternalLoadError: Loading script failed. Here let say our cake mf is currently closed so in this case fetching its remoteEntry.js will show this error. The remoteEntry.js file will be fetched only if some where in our code we have imported or use the mf code.
